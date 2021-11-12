@@ -17,11 +17,20 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public float jumpForce = 300.0f;
 
+    public float normalSpeed = 10.0f;
+    public float springSpeed = 20.0f;
+    public float maxSprint = 5.0f;
+    float sprintTimer;
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
         cam = GameObject.Find("Main Camera");
         myRigidbody = GetComponent<Rigidbody>();
+
+        sprintTimer = maxSpeed;
     }
 
     // Update is called once per frame
@@ -37,10 +46,27 @@ public class PlayerController : MonoBehaviour
         cam.transform.localRotation = Quaternion.Euler(new Vector3(camRotation, 0.0f, 0.0f));
 
         isOnGround = Physics.CheckSphere(groundChecker.transform.position, 0.1f, groundLayer);
-        
+
+        if(isOnGround == true && Input.GetKeyDown(KeyCode.Space))
+        {
+            myRigidbody.AddForce(transform.up * jumpForce);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            maxSpeed = springSpeed;
+            sprintTimer = sprintTimer - Time.deltaTime;
+        } else
+        {
+            maxSpeed = normalSpeed;
+            if (Input.GetKey(KeyCode.LeftShift) == false)
+            {
+                sprintTimer = sprintTimer + Time.deltaTime;
+            }
+        }
+        sprintTimer = Mathf.Clamp(sprintTimer, 0.0f, maxSprint);
+    
     }
+
 }
 
-// 1. All the floats at the top.
-// 2. Change the + > -.
-// 3. Adding another line and change forww w w  ard into right and vertical into horizontal.
