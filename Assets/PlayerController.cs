@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody>();
 
         sprintTimer = maxSpeed;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -44,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
         camRotation = camRotation - Input.GetAxis("Mouse Y") * camRotationSpeed;
         cam.transform.localRotation = Quaternion.Euler(new Vector3(camRotation, 0.0f, 0.0f));
+
+        camRotation = Mathf.Clamp(camRotation, -40.0f, 40.0f);
 
         isOnGround = Physics.CheckSphere(groundChecker.transform.position, 0.1f, groundLayer);
 
