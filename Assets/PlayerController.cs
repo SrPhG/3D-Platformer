@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     float camRotation = 0.0f;
     float rotation = 5.00f;
     public float rotationSpeed = 2.0f;
-    public float camRotationSpeed = 3.00f;
+    public float camRotationSpeed = 5.00f;
     GameObject cam;
     Rigidbody myRigidbody;
 
