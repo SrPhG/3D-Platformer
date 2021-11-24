@@ -69,6 +69,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         sprintTimer = Mathf.Clamp(sprintTimer, 0.0f, maxSprint);
+
+        myAnim.SetFloat("speed", newVelocity.magnitude);
     
     }
 
